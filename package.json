@@ -1,0 +1,30 @@
+{
+  "name": "travella",
+  "version": "1.0.0",
+  "description": "A Travel company ",
+  "main": "app.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node app",
+    "dev": "cross-env NODE_ENV=production node app"
+  },
+  "author": "Aladdin",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.0.2",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "method-override": "^3.0.0",
+    "moment": "^2.29.4",
+    "mongo-connect": "^0.0.6",
+    "mongoose": "^6.6.1",
+    "morgan": "^1.10.0",
+    "passport": "^0.6.0",
+    "passport-google-oauth20": "^2.0.0",
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.20"
+  }
+}
