@@ -14,7 +14,7 @@ module.exports = {
         try{
             await Booknow.create({booknow: req.body.BooknowItem,userId: req.user.id})
             console.log('Booknow has been added!')
-            res.redirect('/Booknow')
+            res.redirect('/booknow')
         }catch(err){
             console.log(err)
         }
