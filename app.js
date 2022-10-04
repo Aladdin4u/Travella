@@ -4,11 +4,13 @@ const mongoose = require('mongoose')
 const passport = require('passport')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
+const methodOverride = require("method-override");
 const flash = require('express-flash')
 const morgan = require('morgan')
 const dotenv = require('dotenv')
 const connectDB = require('./config/db')
 const booknowRoutes = require('./routes/booknow')
+const tourRoutes = require('./routes/tour')
 const homeRoutes = require('./routes/home')
 
 // Load env file
@@ -24,6 +26,8 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(morgan('dev'))
+//Use forms for put / delete
+app.use(methodOverride("_method"));
 
 // Session
 app.use(
@@ -42,6 +46,7 @@ app.use(passport.session())
 app.use(flash())
 
 app.use('/', homeRoutes)
+app.use('/tour', tourRoutes)
 app.use('/booknow', booknowRoutes)
 
 

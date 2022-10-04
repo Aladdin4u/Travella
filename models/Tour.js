@@ -1,42 +1,40 @@
 const mongoose = require('mongoose')
 
 const TourSchema = new mongoose.Schema({
-    tripId: {
+    name: {
         type: String,
         require: true
     },
-    tripDesc: {
+    desc: {
         type: String,
         require: true
+    },
+    rating: {
+        type: Number,
+        min: 0,
+        max: 5,
     },
     ageRange: {
-        type: String,
+        type: Number,
         require: true
     },
-    userId: {
-        type: String,
-        required: true
-    },
-    tourDays: {
+    duration: {
         type: Number,
         required: true
     },
-    tourStart: {
-        type: Date,
+    address: {
+        type: String,
+        required: true,
+    },
+    price: {
+        type: Number,
         required: true
     },
-    tourEnd: {
-        type: Date,
-        required: true
+    photo: {
+        type: [String],
     },
-    tourType: {
-        type: public,
-        enum: [public, private],
-        required: true
-    },
-    tourAcc: {
-        type: Array,
-        enum: [Accommodation, Guide, Meals, Transport],
+    types: {
+        type: String,
         required: true
     }
 })
