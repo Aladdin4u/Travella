@@ -9,8 +9,9 @@ const flash = require('express-flash')
 const morgan = require('morgan')
 const dotenv = require('dotenv')
 const connectDB = require('./config/db')
-const booknowRoutes = require('./routes/booknow')
-const tourRoutes = require('./routes/tour')
+const usersRoutes = require('./routes/users')
+const hotelsRoutes = require('./routes/hotels')
+const roomsRoutes = require('./routes/rooms')
 const homeRoutes = require('./routes/home')
 
 // Load env file
@@ -45,9 +46,21 @@ app.use(passport.session())
 
 app.use(flash())
 
-app.use('/', homeRoutes)
-app.use('/tour', tourRoutes)
-app.use('/booknow', booknowRoutes)
+app.use('/', homeRoutes);
+app.use("/users", usersRoutes);
+app.use("/hotels", hotelsRoutes);
+app.use("/rooms", roomsRoutes);
+
+app.use((err, req, res, next) => {
+  const errorStatus = err.status || 500;
+  const errorMessage = err.message || "Something went wrong!";
+  return res.status(errorStatus).json({
+    success: false,
+    status: errorStatus,
+    message: errorMessage,
+    stack: err.stack,
+  });
+});
 
 
 app.listen(process.env.PORT, ()=>{
