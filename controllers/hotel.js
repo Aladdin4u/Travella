@@ -1,99 +1,65 @@
-const Hotel = require('../models/Hotel')
-const Room = require('../models/Room')
+// const Hotel = require("../models/Hotel");
+// const Room = require("../models/Room");
+const axios = require("axios");
+const dotenv = require("dotenv");
+dotenv.config({ path: "./config/.env" });
 
-export const createHotel = async (req, res, next) => {
-  const newHotel = new Hotel(req.body);
+const config = {
+  headers: {
+    "X-RapidAPI-Key": process.env.RapidAPI_Key,
+    "X-RapidAPI-Host": process.env.RapidAPI_Host,
+  },
+};
+const d = new Date();
+const year = d.getFullYear();
+const mon = d.getMonth();
+const day = d.getDate();
 
-  try {
-    const savedHotel = await newHotel.save();
-    res.status(200).json(savedHotel);
-  } catch (err) {
-    next(err);
-  }
-};
-export const updateHotel = async (req, res, next) => {
-  try {
-    const updatedHotel = await Hotel.findByIdAndUpdate(
-      req.params.id,
-      { $set: req.body },
-      { new: true }
-    );
-    res.status(200).json(updatedHotel);
-  } catch (err) {
-    next(err);
-  }
-};
-export const deleteHotel = async (req, res, next) => {
-  try {
-    await Hotel.findByIdAndDelete(req.params.id);
-    res.status(200).json("Hotel has been deleted.");
-  } catch (err) {
-    next(err);
-  }
-};
-export const getHotel = async (req, res, next) => {
-  try {
-    const hotel = await Hotel.findById(req.params.id);
-    res.status(200).json(hotel);
-  } catch (err) {
-    next(err);
-  }
-};
-export const getHotels = async (req, res, next) => {
-  const { min, max, ...others } = req.query;
-  try {
-    const hotels = await Hotel.find({
-      ...others,
-      cheapestPrice: { $gt: min | 1, $lt: max || 999 },
-    }).limit(req.query.limit);
-    res.status(200).json(hotels);
-  } catch (err) {
-    next(err);
-  }
-};
-export const countByCity = async (req, res, next) => {
-  const cities = req.query.cities.split(",");
-  try {
-    const list = await Promise.all(
-      cities.map((city) => {
-        return Hotel.countDocuments({ city: city });
-      })
-    );
-    res.status(200).json(list);
-  } catch (err) {
-    next(err);
-  }
-};
-export const countByType = async (req, res, next) => {
-  try {
-    const hotelCount = await Hotel.countDocuments({ type: "hotel" });
-    const apartmentCount = await Hotel.countDocuments({ type: "apartment" });
-    const resortCount = await Hotel.countDocuments({ type: "resort" });
-    const villaCount = await Hotel.countDocuments({ type: "villa" });
-    const cabinCount = await Hotel.countDocuments({ type: "cabin" });
+module.exports = {
+  location: async (req, res) => {
+    const city = req.params.city;
+    const url = `https://apidojo-booking-v1.p.rapidapi.com/locations/auto-complete?text=${city}&languagecode=en`;
+    try {
+      axios.get(url, config).then((response) => {
+        res.json(response.data);
+        console.log(response.data.length);
+      });
 
-    res.status(200).json([
-      { type: "hotel", count: hotelCount },
-      { type: "apartments", count: apartmentCount },
-      { type: "resorts", count: resortCount },
-      { type: "villas", count: villaCount },
-      { type: "cabins", count: cabinCount },
-    ]);
-  } catch (err) {
-    next(err);
-  }
-};
+      const savedHotel = await newHotel.save();
+      res.status(200).json(savedHotel);
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  list: async (req, res) => {
+    const start = req.params.start;
+    const end = req.params.end;
+    const url2 = `https://apidojo-booking-v1.p.rapidapi.com/properties/list?arrival_date=${start}&departure_date=${end}&dest_ids=-3712125`;
+    try {
+      axios.get(url2, config).then((response) => {
+        res.json(response.data);
+        console.log(response.data.length);
+      });
 
-export const getHotelRooms = async (req, res, next) => {
-  try {
-    const hotel = await Hotel.findById(req.params.id);
-    const list = await Promise.all(
-      hotel.rooms.map((room) => {
-        return Room.findById(room);
-      })
-    );
-    res.status(200).json(list)
-  } catch (err) {
-    next(err);
-  }
+      const savedHotel = await newHotel.save();
+      res.status(200).json(savedHotel);
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  rooms: async (req, res) => {
+    const hotelId = req.params.hotelId;
+    const url2 = `https://apidojo-booking-v1.p.rapidapi.com/properties/v2/get-rooms?hotel_id=${hotelId}`;
+    try {
+      axios.get(url2, config).then((response) => {
+        res.json(response.data);
+        console.log(response.data.length);
+      });
+
+      const savedHotel = await newHotel.save();
+      res.status(200).json(savedHotel);
+    } catch (err) {
+      console.log(err);
+    }
+  },
 };

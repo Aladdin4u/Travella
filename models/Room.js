@@ -5,19 +5,32 @@ const RoomSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
-      price: {
+      maxPeople: {
         type: Number,
         required: true,
       },
-      maxPeople: {
-        type: Number,
+      checkIn: {
+        type: Date,
+        default: Date.now,
+        required: true,
+      },
+      checkOut: {
+        type: Date,
+        default: Date.now + 1,
         required: true,
       },
       desc: {
         type: String,
         required: true,
       },
-      roomNumbers: [{ number: Number, unavailableDates: {type: [Date]}}],
+      hotelId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Hotel",
+      },
+      userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      }
     },
     { timestamps: true },
 )

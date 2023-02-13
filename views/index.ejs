@@ -44,6 +44,26 @@
         <img src="images/ballon.jpg" alt="Hero image" height="100">
     </div>
     
+    <!-- count by city -->
+    <div class="mt-16">
+        <p class="flex-col text-gray-300 uppercase font-bold text-center">TRAVELLA feature</p>
+        
+        <div class="flex flex-col md:flex-row w-full justify-center items-center">
+            <% hotels.forEach(hotel => { %>
+                <div class="px-4 py-3">
+                    <a href="/hotels/find/<%= hotel._id %>">
+                        <div>
+                            <img src="images/feature-1.jpg" alt="feature">
+                        </div>
+                        <div class="bg-white border border-gray-200 rounded-lg shadow-lg mt-8">
+                            <h1><%= hotel.city %></h1>
+                        </div>
+                    </a>
+                </div>
+            <% }) %>
+        </div> 
+        
+    </div>
 
     <div class="mt-16">
         <p class="flex-col text-gray-300 uppercase font-bold text-center">TRAVELLA SPECIALS</p>
