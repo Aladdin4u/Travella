@@ -1,53 +1,36 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-// const passport = require('passport')
-// const session = require('express-session')
-// const MongoStore = require('connect-mongo')
+const cookieParser = require('cookie-parser')
 const methodOverride = require("method-override");
 const flash = require("express-flash");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
-// const connectDB = require('./config/db')
-const hotelsRoutes = require("./routes/hotels");
-const roomsRoutes = require("./routes/rooms");
-const homeRoutes = require("./routes/home");
+const connectDB = require('./config/db')
+const authRoute = require("./Routes/auth");
+const usersRoute = require("./Routes/users");
+const hotelsRoute = require("./Routes/hotels");
+const roomsRoute = require("./Routes/rooms");
 
 // Load env file
 dotenv.config({ path: "./config/.env" });
 
-// Passport config
-// require('./config/passport')(passport)
+connectDB()
 
-// connectDB()
-
-app.set("view engine", "ejs");
-app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(morgan("dev"));
 //Use forms for put / delete
 app.use(methodOverride("_method"));
 
-// Session
-// app.use(
-//     session({
-//       secret: process.env.SECRET,
-//       resave: false,
-//       saveUninitialized: false,
-//       store: MongoStore.create({ mongoUrl:process.env.DB_STRING })
-//     })
-// )
-
-// Passport Middleware
-// app.use(passport.initialize())
-// app.use(passport.session())
-
 app.use(flash());
+app.use(cookieParser())
 
-app.use("/", homeRoutes);
-app.use("/hotels", hotelsRoutes);
-app.use("/rooms", roomsRoutes);
+app.use("/", homeRoute);
+app.use("api/auth", authRoute);
+app.use("api/users", usersRoute);
+app.use("api/hotels", hotelsRoute);
+app.use("api/rooms", roomsRoute);
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
