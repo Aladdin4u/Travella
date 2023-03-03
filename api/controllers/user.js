@@ -35,7 +35,7 @@ module.exports = {
       next(error);
     }
   },
-  getAllUser: async (req, res, next, next) => {
+  getAllUser: async (req, res, next) => {
     try {
       const users = await User.find();
       res.status(200).json(users);
