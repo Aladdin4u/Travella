@@ -13,8 +13,8 @@ router.delete("/:id", verifyAdmin, hotelController.deleteHotel);
 router.get("find/:id", hotelController.getHotel);
 //GetAll
 router.get("/", hotelController.getAllHotel);
-router.get("/countByCity", hotelController.getCity);
-router.get("/countByType", hotelController.getType);
+router.get("/countByCity", hotelController.getCountByCity);
+router.get("/countByType", hotelController.getCountByType);
 router.get("/room/:id", hotelController.getHotelRooms);
 
 module.exports = router;
