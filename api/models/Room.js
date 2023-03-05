@@ -22,14 +22,6 @@ const RoomSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    hotelId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Hotel",
-    },
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    },
   },
   { timestamps: true }
 );

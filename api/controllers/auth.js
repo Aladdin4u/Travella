@@ -1,21 +1,21 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const createError = require("../utilis/error");
-const jwt = require("jsonwebtoken");
+const jwk = require("jsonwebtoken");
 
 module.exports = {
   register: async (req, res, next) => {
     try {
       const salt = bcrypt.genSaltSync(10);
-      const hash = bcrypt.hashSync(req.body.password, salt);
+      const hash = bcrypt.hashSync("admin", salt);
       const newUser = new User({
-        username: req.body.username,
-        email: req.body.email,
+        username: "admin",
+        email: "admin@gmail.com",
         password: hash,
       });
 
       await newUser.save();
-      res.status(201).send(user);
+      res.status(201).send(newUser);
     } catch (error) {
       next(error);
     }
@@ -36,13 +36,13 @@ module.exports = {
         { id: user._id, isAdmin: user.isAdmin },
         process.env.JWT
       );
-      const { password, isAdmin, ...otherDetails } = user_doc;
+      const { password, isAdmin, ...otherDetails } = user._doc;
       res
-        .cookie("access token", token, {
+        .cookie("access_token", token, {
           httpOnly: true,
         })
-        .status(201)
-        .send({ ...otherDetails });
+        .status(200)
+        .json({ ...otherDetails });
     } catch (error) {
       next(error);
     }
