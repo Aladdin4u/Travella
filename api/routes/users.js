@@ -1,13 +1,18 @@
 const express = require("express");
 const userController = require("../controllers/user");
 const {
-  verifyToken,
   verifyUser,
   verifyAdmin,
 } = require("../utilis/verifyToken");
 const router = express.Router();
 
-// router.get("/checkauthenticated", verifyToken, (req,res,next))
+// router.get("/checkuser/:id", verifyUser, (req,res,next) => {
+//   res.send("hello user you are authenticated and can deleted user")
+// })
+// router.get("/checkadmin/:id", verifyAdmin, (req,res,next) => {
+//   res.send("hello Admin  you are authenticated and can deleted user")
+// })
+
 //Create
 router.post("/", userController.createUser);
 //Update

@@ -1,21 +1,23 @@
-const Room = require('../models/Room')
-const Hotel = require('../models/Hotel')
-const createError = require("../utilis/error")
+const Room = require("../models/Room");
+const Hotel = require("../models/Hotel");
+const { createError } = require("../utilis/error");
 
 module.exports = {
   createRoom: async (req, res, next) => {
     const hotelId = req.params.hotelId;
-    const newRoom = await Room(req.body)
+    const newRoom = await Room(req.body);
     try {
-        const savedRoom = await newRoom.save();
-        try {
-          await Hotel.findByIdAndUpdate(hotelId, {$push : {rooms: savedRoom._id}})
-        } catch (error) {
-          next(error)
-        }
-        res.status(200).json(savedRoom)
+      const savedRoom = await newRoom.save();
+      try {
+        await Hotel.findByIdAndUpdate(hotelId, {
+          $push: { rooms: savedRoom._id },
+        });
+      } catch (error) {
+        next(error);
+      }
+      res.status(200).json(savedRoom);
     } catch (error) {
-      next(error)
+      next(error);
     }
   },
   updateRoom: async (req, res, next) => {
@@ -36,13 +38,13 @@ module.exports = {
         { "roomNumbers._id": req.params.id },
         {
           $push: {
-            "roomNumbers.$.unavailableDates": req.body.dates
+            "roomNumbers.$.unavailableDates": req.body.dates,
           },
         }
       );
       res.status(200).json("Room status has been updated.");
     } catch (err) {
-       console.log(err);
+      console.log(err);
     }
   },
   deleteRoom: async (req, res, next) => {
@@ -61,7 +63,7 @@ module.exports = {
       next(error);
     }
   },
-  getRoom: async (req, res,next) => {
+  getRoom: async (req, res, next) => {
     try {
       const room = await Room.findById(req.params.id);
       res.status(200).json(room);
@@ -76,5 +78,5 @@ module.exports = {
     } catch (error) {
       next(error);
     }
-  }
-}
+  },
+};

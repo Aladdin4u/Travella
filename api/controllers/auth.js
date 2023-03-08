@@ -1,6 +1,6 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
-const createError = require("../utilis/error");
+const { createError } = require("../utilis/error");
 const jwk = require("jsonwebtoken");
 
 module.exports = {
@@ -9,8 +9,7 @@ module.exports = {
       const salt = bcrypt.genSaltSync(10);
       const hash = bcrypt.hashSync("admin", salt);
       const newUser = new User({
-        username: "admin",
-        email: "admin@gmail.com",
+        ...req.body,
         password: hash,
       });
 
@@ -48,3 +47,4 @@ module.exports = {
     }
   },
 };
+ 
