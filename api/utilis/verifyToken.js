@@ -4,7 +4,6 @@ const createError = require("../utilis/error");
 module.exports = {
   verifyToken: (req, res, next) => {
     const token = req.cookies.access_token;
-    console.log(token)
     if (!token) {
       return next(createError(401, "You are not authenticated!"));
     }
@@ -26,7 +25,6 @@ module.exports = {
   },
   verifyAdmin: () => {
     verifyToken(req, res, next, () => {
-      console.log(token)
       if (req.user.isAdmin) {
         next();
       } else {
