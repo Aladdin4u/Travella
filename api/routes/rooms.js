@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router();
 const roomController = require('../controllers/room');
-const { verifyAdmin } = require('../utilis/verifyToken');
+const { verifyAdmin } = require('../utils/verifyToken');
 
 //CREATE
 router.post("/:hotelId", verifyAdmin, roomController.createRoom);

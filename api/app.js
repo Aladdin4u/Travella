@@ -46,3 +46,5 @@ app.listen(process.env.PORT, () => {
     `Server is running, you better catch it! on port ${process.env.PORT}`
   );
 });
+
+module.exports = app;

@@ -1,6 +1,5 @@
 const Room = require("../models/Room");
 const Hotel = require("../models/Hotel");
-const { createError } = require("../utilis/error");
 
 module.exports = {
   createRoom: async (req, res, next) => {

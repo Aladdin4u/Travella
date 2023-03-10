@@ -3,7 +3,7 @@ const userController = require("../controllers/user");
 const {
   verifyUser,
   verifyAdmin,
-} = require("../utilis/verifyToken");
+} = require("../utils/verifyToken");
 const router = express.Router();
 
 // router.get("/checkuser/:id", verifyUser, (req,res,next) => {

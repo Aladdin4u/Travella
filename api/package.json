@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "cross-env NODE_ENV=production node app",
-    "dev": "cross-env NODE_ENV=development nodemon app"
+    "dev": "cross-env NODE_ENV=development nodemon app",
+    "test": "cross-env NODE_ENV=test test"
   },
   "author": "Aladdin",
   "license": "MIT",
@@ -32,6 +33,12 @@
     "@types/cookie-parser": "^1.4.3",
     "@types/jsonwebtoken": "^9.0.1",
     "cross-env": "^7.0.3",
-    "nodemon": "^2.0.20"
+    "jest": "^29.5.0",
+    "nodemon": "^2.0.20",
+    "supertest": "^6.3.3"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "globalTeardown": "./tests/teardown.js"
   }
 }
