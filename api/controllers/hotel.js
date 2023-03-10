@@ -7,7 +7,7 @@ module.exports = {
 
     try {
       const savedHotel = await newHotel.save();
-      res.status(200).json(savedHotel);
+      res.status(201).json(savedHotel);
     } catch (error) {
       next(error);
     }
@@ -27,7 +27,7 @@ module.exports = {
   deleteHotel: async (req, res, next) => {
     try {
       await Hotel.findByIdAndDelete(req.params.id);
-      res.status(200).json("Hotel has been deleted");
+      res.status(204).json("Hotel has been deleted");
     } catch (error) {
       next(error);
     }
