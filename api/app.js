@@ -3,6 +3,7 @@ const cookieParser = require("cookie-parser");
 const methodOverride = require("method-override");
 const flash = require("express-flash");
 const morgan = require("morgan");
+const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const authRoute = require("./Routes/auth");
@@ -16,6 +17,7 @@ dotenv.config({ path: "./config/.env" });
 
 connectDB();
 
+app.use(cors());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
