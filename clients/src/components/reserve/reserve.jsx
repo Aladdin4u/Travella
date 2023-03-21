@@ -10,7 +10,7 @@ const Reverse = ({ setOpen, hotelId }) => {
     const navigate = useNavigate();
   const { dates } = useContext(SearchContext);
   const [selectedRooms, setSelectedRooms] = useState();
-  const { data, loading, error, reFetch } = useFetch(`/hotels/room/${hotelId}`);
+  const { data, loading, error, reFetch } = useFetch(`http://localhost:8000/api/hotels/room/${hotelId}`);
 
   const getDatesInRange = (startDate, endDate) => {
     const start = new Date(startDate);

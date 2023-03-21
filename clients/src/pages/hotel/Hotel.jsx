@@ -25,7 +25,7 @@ const Hotel = () => {
   const [openModel, setOpenModel] = useState(false);
   let id = location.pathname.split("/")[2]
   const { data, loading, error, reFetch } = useFetch(
-    `/hotels/find/${id}`
+    `http://localhost:8000/api/hotels/find/${id}`
   );
 
   const { dates, options } = useContext(SearchContext)
