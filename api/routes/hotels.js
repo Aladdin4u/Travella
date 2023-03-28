@@ -10,7 +10,7 @@ router.put("/:id", verifyAdmin, hotelController.updateHotel);
 //Delete
 router.delete("/:id", verifyAdmin, hotelController.deleteHotel);
 //Get
-router.get("find/:id", hotelController.getHotel);
+router.get("/find/:id", hotelController.getHotel);
 //GetAll
 router.get("/", hotelController.getAllHotel);
 router.get("/countByCity", hotelController.getCountByCity);
