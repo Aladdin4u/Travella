@@ -4,7 +4,7 @@ import "./searchItem.css";
 const SearchItem = ({ item }) => {
   return (
     <div className="searchItem">
-      <img src={item.images[0]} alt="" className="siImg" />
+      <img src={item.photos[0]} alt="" className="siImg" />
       <div className="siDesc">
         <h1 className="siTitle">{item.name}</h1>
         <span className="siDistance">{item.distance}m from center</span>
@@ -12,7 +12,7 @@ const SearchItem = ({ item }) => {
         <span className="siSubtitle">
           Studio Apartment with Air conditioning
         </span>
-        <span className="siFeatures">{item.disc}</span>
+        <span className="siFeatures">{item.desc}</span>
         <span className="siCancelOp">Free cancellation </span>
         <span className="siCancelOpSubtitle">
           You can cancel later, so lock in this great price today!

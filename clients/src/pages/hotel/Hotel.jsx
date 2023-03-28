@@ -24,7 +24,7 @@ const Hotel = () => {
   const [open, setOpen] = useState(false);
   const [openModel, setOpenModel] = useState(false);
   let id = location.pathname.split("/")[2]
-  const { data, loading, error, reFetch } = useFetch(
+  const { data, loading } = useFetch(
     `http://localhost:8000/api/hotels/find/${id}`
   );
 
@@ -35,8 +35,9 @@ const Hotel = () => {
     const timeDiff = Math.abs(date2.getTime() - date1.getTime());
     const dayDays = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
     return dayDays
-  }
-
+  } 
+console.log(data.photos)
+// const photos = data.photos
   const days = dayDifferences(dates[0].endDate, dates[0].startDate)
   const photos = [
     {
@@ -112,7 +113,7 @@ const Hotel = () => {
           </div>
         )}
         <div className="hotelWrapper">
-          <button className="bookNow">Reserve or Book Now!</button>
+          <button className="bookNow" onClick={handleClick}>Reserve or Book Now!</button>
           <h1 className="hotelTitle">{data.name}</h1>
           <div className="hotelAddress">
             <FontAwesomeIcon icon={faLocationDot} />
@@ -130,7 +131,7 @@ const Hotel = () => {
                 <img
                   onClick={() => handleOpen(i)}
                   src={photo.src}
-                  alt=""
+                  alt={data.name}
                   className="hotelImg"
                 />
               </div>
@@ -146,11 +147,11 @@ const Hotel = () => {
             <div className="hotelDetailsPrice">
               <h1>Perfect for a {days}-night stay!</h1>
               <span>
-                Located in the real heart of Krakow, this property has an
-                excellent location score of 9.8!
+                Located in {data.address}, this property has an
+                excellent rating score of {data.rating}!
               </span>
               <h2>
-                <b>${days * data.CheapestPrice * options.room}</b> ({days} nights)
+                <b>${days * data.cheapestPrice * options.room}</b> ({days} nights)
               </h2>
               <button onClick={handleClick}>Reserve or Book Now!</button>
             </div>
