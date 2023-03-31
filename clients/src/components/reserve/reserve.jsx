@@ -4,21 +4,23 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContext";
 import useFetch from "../../hooks/useFectch";
-import "./reverve.css";
+import "./reserve.css";
 
 const Reverse = ({ setOpen, hotelId }) => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const { dates } = useContext(SearchContext);
   const [selectedRooms, setSelectedRooms] = useState();
-  const { data, loading, error, reFetch } = useFetch(`http://localhost:8000/api/hotels/room/${hotelId}`);
+  const { data, loading, error, reFetch } = useFetch(
+    `http://localhost:8000/api/hotels/room/${hotelId}`
+  );
 
   const getDatesInRange = (startDate, endDate) => {
     const start = new Date(startDate);
     const end = new Date(endDate);
-    const date = new Date(startDate.getTime());
+    const date = new Date(start.getTime());
 
     let list = [];
-    while (data <= end) {
+    while (date <= end) {
       list.push(new Date(date).getTime());
       date.setDate(date.getTime() + 1);
     }
@@ -42,17 +44,19 @@ const Reverse = ({ setOpen, hotelId }) => {
     );
   };
 
-  const handleClick = async() => {
+  const handleClick = async () => {
     try {
-        await Promise.all(selectedRooms.map(roomId => {
-            const res = axios.put(`/rooms/availability/${roomId}`, {dates:alldates})
-            return res.data;
-        }))
-        setOpen(false)
-        navigate("/")
-    } catch (error) {
-        
-    }
+      await Promise.all(
+        selectedRooms.map((roomId) => {
+          const res = axios.put(`http://localhost:8000/api/rooms/availability/${roomId}`, {
+            dates: alldates,
+          });
+          return res.data;
+        })
+      );
+      setOpen(false);
+      navigate("/");
+    } catch (error) {}
   };
   return (
     <div className="reserve">
@@ -73,10 +77,11 @@ const Reverse = ({ setOpen, hotelId }) => {
             </div>
             <div className="rprice">{item.price}</div>
             <div className="rSelectedRooms">
-              {item.roomNumbers.map((roomNumber) => (
-                <div className="room">
-                  <label htmlFor="">{roomNumber.number}</label>
+              {item.roomNumbers.map((roomNumber,i) => (
+                <div className="room" key={roomNumber._id}>
+                  <label htmlFor={`roomNumber${i}`}>{roomNumber.number}</label>
                   <input
+                    id={`roomNumber${i}`}
                     type="checkbox"
                     value={roomNumber._id}
                     onChange={handleSelect}
