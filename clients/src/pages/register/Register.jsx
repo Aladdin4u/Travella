@@ -1,10 +1,14 @@
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import "./register.css";
+
 const Register = () => {
   const [credentials, SetCredentials] = useState({
     username: undefined,
+    email: undefined,
+    country: undefined,
+    phone: undefined,
     password: undefined,
   });
   const { loading, error, dispatch } = useContext(AuthContext);
@@ -22,32 +26,54 @@ const Register = () => {
     e.preventDefault();
     dispatch({type: "LOGIN_START"})
     try {
-        const res = await axios.post("/auth/login", credentials);
+        const res = await axios.post("/auth/register", credentials);
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data});
-        navigate("/");
+        navigate("/login");
     } catch (error) {
         dispatch({type: "LOGIN_FAILURE", payload: error.response.data})
     }
   }
   return (
-    <div className="login">
-        <div className="lContainer">
+    <div className="register">
+        <div className="rContainer">
             <input 
                 type="text" 
                 placeholder="username"
                 id="username"
                 onChange={handleChange}
-                className="lInput"
+                className="lRegister"
+            />
+            <input 
+                type="email" 
+                placeholder="email"
+                id="email"
+                onChange={handleChange}
+                className="lRegister"
+            />
+            <input 
+                type="number" 
+                placeholder="phone number"
+                id="phone"
+                onChange={handleChange}
+                className="lRegister"
+            />
+            <input 
+                type="text" 
+                placeholder="country"
+                id="country"
+                onChange={handleChange}
+                className="lRegister"
             />
             <input 
                 type="password" 
                 placeholder="password"
                 id="passsword"
                 onChange={handleChange}
-                className="lInput"
+                className="lRegister"
             />
             <button disabled={loading} onClick={handleClick} className="lButton">Register</button>
             {error && <span>error.message</span> }
+            <p>Have an account? <Link to="/login">Login</Link></p>
         </div>
     </div>
     );
