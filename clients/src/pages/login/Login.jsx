@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import axios from "axios";
 import "./login.css";
 
 const Login = () => {
@@ -18,20 +19,37 @@ const Login = () => {
       [e.target.id]: e.target.value,
     }));
   };
-  const handleDemo = (e) => {
+  const handleDemo = async (e) => {
+    e.preventDefault();
     SetCredentials((prev) => ({
       ...prev,
       username: "demo",
       password: "demo",
     }));
+    console.log(credentials);
+    try {
+      const res = await axios.post(
+        "http://localhost:8000/api/auth/login",
+        credentials
+      );
+      dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+      console.log(res.data);
+      navigate("/");
+    } catch (error) {
+      dispatch({ type: "LOGIN_FAILURE", payload: error.response.data });
+    }
   };
 
   const handleClick = async (e) => {
     e.preventDefault();
     dispatch({ type: "LOGIN_START" });
     try {
-      const res = await axios.post("/auth/login", credentials);
+      const res = await axios.post(
+        "http://localhost:8000/api/auth/login",
+        credentials
+      );
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+      console.log(res.data);
       navigate("/");
     } catch (error) {
       dispatch({ type: "LOGIN_FAILURE", payload: error.response.data });
@@ -50,7 +68,7 @@ const Login = () => {
         <input
           type="password"
           placeholder="password"
-          id="passsword"
+          id="password"
           onChange={handleChange}
           className="lInput"
         />
@@ -58,11 +76,16 @@ const Login = () => {
           <button disabled={loading} onClick={handleClick} className="lButton">
             Login
           </button>
-          <button disabled={loading} onClick={handleDemo} className="lButton">
+          <button
+            disabled={loading}
+            type="submit"
+            onClick={handleDemo}
+            className="lButton"
+          >
             Demo
           </button>
         </div>
-        {error && <span>error.message</span>}
+        {error && <span>{error.message}</span>}
         <p>
           Create an account? <Link to="/register">Register</Link>
         </p>

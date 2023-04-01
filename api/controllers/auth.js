@@ -7,7 +7,7 @@ module.exports = {
   register: async (req, res, next) => {
     try {
       const salt = bcrypt.genSaltSync(10);
-      const hash = bcrypt.hashSync("admin", salt);
+      const hash = bcrypt.hashSync(req.body.password, salt);
       const newUser = new User({
         ...req.body,
         password: hash,
@@ -23,7 +23,6 @@ module.exports = {
     try {
       const user = await User.findOne({ username: req.body.username });
       if (!user) return next(createError(404, "User not found!"));
-
       const isPasswordCorrect = await bcrypt.compare(
         req.body.password,
         user.password
@@ -47,4 +46,3 @@ module.exports = {
     }
   },
 };
- 
