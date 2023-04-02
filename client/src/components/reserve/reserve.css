@@ -1,4 +1,4 @@
-.reverse {
+.reserve {
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.418);
@@ -8,9 +8,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    /* z-index: 2; */
 }
 
-.rcontainer {
+.rContainer {
     background-color: white;
     padding: 20px;
     position: relative;

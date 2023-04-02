@@ -8,7 +8,7 @@ const Navbar = () => {
   const { user } = useContext(AuthContext);
   const handleClick = () => {
     window.localStorage.removeItem("user")
-    navigate("/")
+    window.location.href = "/"
   }
   return (
     <div className="navbar">

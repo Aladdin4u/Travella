@@ -37,7 +37,7 @@ const Hotel = () => {
     const dayDays = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
     return dayDays
   } 
-console.log(data.photos)
+// console.log(data.photos)
 // const photos = data.photos
   const days = dayDifferences(dates[0].endDate, dates[0].startDate)
   const photos = [

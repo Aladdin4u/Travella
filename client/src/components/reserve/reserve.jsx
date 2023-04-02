@@ -13,7 +13,7 @@ const Reverse = ({ setOpen, hotelId }) => {
   const { data, loading, error, reFetch } = useFetch(
     `http://localhost:8000/api/hotels/room/${hotelId}`
   );
-
+console.log("hotle room =====>",data)
   const getDatesInRange = (startDate, endDate) => {
     const start = new Date(startDate);
     const end = new Date(endDate);
@@ -68,7 +68,7 @@ const Reverse = ({ setOpen, hotelId }) => {
         />
         <span>Select your rooms:</span>
         {data.map((item) => {
-          <div className="rItemInfo">
+          <div className="rItem">
             <div className="rTitle">{item.title}</div>
             <div className="rDesc">{item.Desc}</div>
             <div className="rMax">{item.Max}</div>
