@@ -13,7 +13,7 @@ const Reverse = ({ setOpen, hotelId }) => {
   const { data, loading, error, reFetch } = useFetch(
     `http://localhost:8000/api/hotels/room/${hotelId}`
   );
-console.log("hotle room =====>",data)
+  console.log("hotle room =====>", data);
   const getDatesInRange = (startDate, endDate) => {
     const start = new Date(startDate);
     const end = new Date(endDate);
@@ -48,9 +48,12 @@ console.log("hotle room =====>",data)
     try {
       await Promise.all(
         selectedRooms.map((roomId) => {
-          const res = axios.put(`http://localhost:8000/api/rooms/availability/${roomId}`, {
-            dates: alldates,
-          });
+          const res = axios.put(
+            `http://localhost:8000/api/rooms/availability/${roomId}`,
+            {
+              dates: alldates,
+            }
+          );
           return res.data;
         })
       );
@@ -69,19 +72,20 @@ console.log("hotle room =====>",data)
         <span>Select your rooms:</span>
         {data.map((item) => {
           <div className="rItem">
-            <div className="rTitle">{item.title}</div>
-            <div className="rDesc">{item.Desc}</div>
-            <div className="rMax">{item.Max}</div>
-            <div className="riTitle">
-              Max people: <b>{item.title}</b>
+            <div className="rItemInfo">
+              <div className="rTitle">{item.title}</div>
+              <div className="rDesc">{item.Desc}</div>
+              <div className="rMax">
+                <b>{item.Max}</b>
+              </div>
+              <div className="rprice">{item.price}</div>
             </div>
-            <div className="rprice">{item.price}</div>
             <div className="rSelectedRooms">
-              {item.roomNumbers.map((roomNumber,i) => (
+              {item.roomNumbers.map((roomNumber, i) => (
                 <div className="room" key={roomNumber._id}>
-                  <label htmlFor={`roomNumber${i}`}>{roomNumber.number}</label>
+                  <label htmlFor={roomNumber.title}>{roomNumber.number}</label>
                   <input
-                    id={`roomNumber${i}`}
+                    id={roomNumber.title}
                     type="checkbox"
                     value={roomNumber._id}
                     onChange={handleSelect}
@@ -90,11 +94,11 @@ console.log("hotle room =====>",data)
                 </div>
               ))}
             </div>
-            <button onClick={handleClick} className="rButton">
-              Reserve Now
-            </button>
-          </div>;
+          </div>
         })}
+        <button onClick={handleClick} className="rButton">
+          Reserve Now
+        </button>
       </div>
     </div>
   );
