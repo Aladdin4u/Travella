@@ -4,16 +4,17 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContext";
 import useFetch from "../../hooks/useFectch";
+import axios from "axios";
 import "./reserve.css";
 
 const Reverse = ({ setOpen, hotelId }) => {
   const navigate = useNavigate();
   const { dates } = useContext(SearchContext);
-  const [selectedRooms, setSelectedRooms] = useState();
-  const { data, loading, error, reFetch } = useFetch(
-    `http://localhost:8000/api/hotels/room/${hotelId}`
-  );
-  console.log("hotle room =====>", data);
+  const [selectedRooms, setSelectedRooms] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const { data } = useFetch(`http://localhost:8000/api/hotels/room/${hotelId}`);
+ 
+  console.log("hotle room =====>", selectedRooms);
   const getDatesInRange = (startDate, endDate) => {
     const start = new Date(startDate);
     const end = new Date(endDate);
@@ -24,11 +25,12 @@ const Reverse = ({ setOpen, hotelId }) => {
       list.push(new Date(date).getTime());
       date.setDate(date.getTime() + 1);
     }
+    return list
   };
 
   const alldates = getDatesInRange(dates[0].startDate, dates[0].endDate);
   const isAvaliable = (roomNumber) => {
-    const isFound = roomNumber.unavaliableDate.some((date) =>
+    const isFound = roomNumber.unavaliableDates.some((date) =>
       alldates.includes(new Date(date.getTime()))
     );
     return !isFound;
@@ -45,6 +47,7 @@ const Reverse = ({ setOpen, hotelId }) => {
   };
 
   const handleClick = async () => {
+    setLoading(true)
     try {
       await Promise.all(
         selectedRooms.map((roomId) => {
@@ -54,10 +57,12 @@ const Reverse = ({ setOpen, hotelId }) => {
               dates: alldates,
             }
           );
+          console.log(res.data)
           return res.data;
         })
       );
       setOpen(false);
+      setLoading(false)
       navigate("/");
     } catch (error) {}
   };
@@ -71,30 +76,33 @@ const Reverse = ({ setOpen, hotelId }) => {
         />
         <span>Select your rooms:</span>
         {data.map((item) => {
-          <div className="rItem">
-            <div className="rItemInfo">
-              <div className="rTitle">{item.title}</div>
-              <div className="rDesc">{item.Desc}</div>
-              <div className="rMax">
-                <b>{item.Max}</b>
-              </div>
-              <div className="rprice">{item.price}</div>
-            </div>
-            <div className="rSelectedRooms">
-              {item.roomNumbers.map((roomNumber, i) => (
-                <div className="room" key={roomNumber._id}>
-                  <label htmlFor={roomNumber.title}>{roomNumber.number}</label>
-                  <input
-                    id={roomNumber.title}
-                    type="checkbox"
-                    value={roomNumber._id}
-                    onChange={handleSelect}
-                    disable={!isAvaliable}
-                  />
+          return (
+            <div className="rItem" key={item._id}>
+              <div className="rItemInfo">
+                <div className="rTitle">Name: {item.title}</div>
+                <div className="rDesc">Desc: {item.desc}</div>
+                <div className="rMax">
+                  Max People: <b>{item.maxPeople}</b>
                 </div>
-              ))}
+                <div className="rprice">Price: {item.price}</div>
+              </div>
+              <div className="rSelectedRooms">
+                {item.roomNumbers.map((roomNumber) => (
+                  <div className="room" key={roomNumber.number}>
+                    <label>
+                      {roomNumber.number}
+                    </label>
+                    <input
+                      type="checkbox"
+                      value={roomNumber._id}
+                      onChange={handleSelect}
+                      disabled={!isAvaliable(roomNumber)}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          );
         })}
         <button onClick={handleClick} className="rButton">
           Reserve Now

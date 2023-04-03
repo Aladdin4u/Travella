@@ -29,10 +29,10 @@
     align-items: center;
     gap: 50px;
     padding: 20px;
-    max-width: 600px;
+    /* max-width: 600px; */
 }
 
-.rInfo {
+.rItemInfo {
     display: flex;
     flex-direction: column;
     gap: 5px;
