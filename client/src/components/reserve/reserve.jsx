@@ -13,7 +13,7 @@ const Reverse = ({ setOpen, hotelId }) => {
   const [selectedRooms, setSelectedRooms] = useState([]);
   const [loading, setLoading] = useState(false);
   const { data } = useFetch(`http://localhost:8000/api/hotels/room/${hotelId}`);
- 
+
   console.log("hotle room =====>", selectedRooms);
   const getDatesInRange = (startDate, endDate) => {
     const start = new Date(startDate);
@@ -24,11 +24,13 @@ const Reverse = ({ setOpen, hotelId }) => {
     while (date <= end) {
       list.push(new Date(date).getTime());
       date.setDate(date.getTime() + 1);
+      console.log("setdate", date.setDate(date.getTime() + 1));
     }
-    return list
+    return list;
   };
 
   const alldates = getDatesInRange(dates[0].startDate, dates[0].endDate);
+
   const isAvaliable = (roomNumber) => {
     const isFound = roomNumber.unavaliableDates.some((date) =>
       alldates.includes(new Date(date.getTime()))
@@ -47,7 +49,7 @@ const Reverse = ({ setOpen, hotelId }) => {
   };
 
   const handleClick = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       await Promise.all(
         selectedRooms.map((roomId) => {
@@ -57,12 +59,12 @@ const Reverse = ({ setOpen, hotelId }) => {
               dates: alldates,
             }
           );
-          console.log(res.data)
+          console.log(res.data);
           return res.data;
         })
       );
       setOpen(false);
-      setLoading(false)
+      setLoading(false);
       navigate("/");
     } catch (error) {}
   };
@@ -89,9 +91,7 @@ const Reverse = ({ setOpen, hotelId }) => {
               <div className="rSelectedRooms">
                 {item.roomNumbers.map((roomNumber) => (
                   <div className="room" key={roomNumber.number}>
-                    <label>
-                      {roomNumber.number}
-                    </label>
+                    <label>{roomNumber.number}</label>
                     <input
                       type="checkbox"
                       value={roomNumber._id}

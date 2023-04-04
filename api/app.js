@@ -10,6 +10,7 @@ const authRoute = require("./Routes/auth");
 const usersRoute = require("./Routes/users");
 const hotelsRoute = require("./Routes/hotels");
 const roomsRoute = require("./Routes/rooms");
+const paymentRoute = require("./Routes/payment");
 
 const app = express();
 // Load env file
@@ -31,6 +32,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/users", usersRoute);
 app.use("/api/hotels", hotelsRoute);
 app.use("/api/rooms", roomsRoute);
+app.use("/api/checkout", paymentRoute);
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
