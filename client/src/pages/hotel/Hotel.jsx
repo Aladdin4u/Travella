@@ -26,7 +26,7 @@ const Hotel = () => {
   const [openModel, setOpenModel] = useState(false);
   let id = location.pathname.split("/")[2];
   const { data, loading } = useFetch(
-    `http://localhost:8000/api/hotels/find/${id}`
+    `${process.env.REACT_APP_API}/hotels/find/${id}`
   );
 
   const { dates, options } = useContext(SearchContext);
@@ -37,8 +37,7 @@ const Hotel = () => {
     const dayDays = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
     return dayDays;
   }
-  // console.log(data.photos)
-  // const photos = data.photos
+  
   const days = dayDifferences(dates[0].endDate, dates[0].startDate);
   const photos = [
     {

@@ -3,7 +3,7 @@ import "./featured.css";
 
 const Featured = () => {
   const { data, loading, error } = useFetch(
-    "http://localhost:8000/api/hotels/countByCity?cities=berlin,madrid,london"
+    `${process.env.REACT_APP_API}/hotels/countByCity?cities=berlin,madrid,london`
   );
   
   return (

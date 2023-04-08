@@ -21,6 +21,7 @@ const Login = () => {
   };
   const handleDemo = async (e) => {
     e.preventDefault();
+    dispatch({ type: "LOGIN_START" });
     SetCredentials((prev) => ({
       ...prev,
       username: "demo",
@@ -29,7 +30,7 @@ const Login = () => {
     console.log(credentials);
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/auth/login",
+        `${process.env.REACT_APP_API}/auth/login`,
         credentials
       );
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
@@ -45,7 +46,7 @@ const Login = () => {
     dispatch({ type: "LOGIN_START" });
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/auth/login",
+        `${process.env.REACT_APP_API}/auth/login`,
         credentials
       );
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data });

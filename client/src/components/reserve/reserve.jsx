@@ -12,9 +12,8 @@ const Reverse = ({ setOpen, hotelId }) => {
   const { dates } = useContext(SearchContext);
   const [selectedRooms, setSelectedRooms] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { data } = useFetch(`http://localhost:8000/api/hotels/room/${hotelId}`);
+  const { data } = useFetch(`${process.env.REACT_APP_API}/hotels/room/${hotelId}`);
 
-  console.log("hotle room =====>", selectedRooms);
   const getDatesInRange = (startDate, endDate) => {
     const start = new Date(startDate);
     const end = new Date(endDate);
@@ -24,7 +23,6 @@ const Reverse = ({ setOpen, hotelId }) => {
     while (date <= end) {
       list.push(new Date(date).getTime());
       date.setDate(date.getTime() + 1);
-      console.log("setdate", date.setDate(date.getTime() + 1));
     }
     return list;
   };
@@ -47,14 +45,13 @@ const Reverse = ({ setOpen, hotelId }) => {
         : selectedRooms.filter((item) => item !== value)
     );
   };
-
   const handleClick = async () => {
     setLoading(true);
     try {
       await Promise.all(
         selectedRooms.map((roomId) => {
           const res = axios.put(
-            `http://localhost:8000/api/rooms/availability/${roomId}`,
+            `${process.env.REACT_APP_API}/rooms/availability/${roomId}`,
             {
               dates: alldates,
             }
@@ -63,9 +60,10 @@ const Reverse = ({ setOpen, hotelId }) => {
           return res.data;
         })
       );
+      const paymentIntent = await axios.post(`${process.env.REACT_APP_API}/checkout/create-checkout-session`,{hotelId})
+      window.location.href = paymentIntent.url
       setOpen(false);
       setLoading(false);
-      navigate("/");
     } catch (error) {}
   };
   return (

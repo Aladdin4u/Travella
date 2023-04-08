@@ -1,23 +1,34 @@
 const User = require("../models/User");
-const stripe = require('stripe')('sk_test_51MsyNdB3KrsTgH4dK29H5cTrc7SdANsAWkirXXjZPm4l7xNMPXvlM9FlWUICfwWnBLLcvDbOiLl2SYvEz9RqybQU00r2c7kAaU');
+const stripe = require("stripe")(process.env.STRIPE_SECRET);
 
 module.exports = {
   createCheckoutSession: async (req, res, next) => {
-    const newUser = new User(req.body);
-    // const paymentIntent = await stripe.paymentIntents.create({
-    //     amount: 1099,
-    //     currency: 'usd',
-    //     automatic_payment_methods: {enabled: true},
-    //   });
+    const {hotelId} = (req.body);
+    console.log(hotelId)
     try {
-        const intent = await stripe.paymentIntents.create({
-            amount: 1099,
-            currency: 'usd',
-            automatic_payment_methods: {enabled: true},
-          });
-        res.json({client_secret: intent.client_secret});
+      const session = await stripe.checkout.sessions.create({
+        line_items: [
+          {
+            price_data: {
+              currency: "usd",
+              product_data: {
+                name: "hotel jane test",
+              },
+              unit_amount: 1099,
+            },
+            quantity: 1,
+          },
+        ],
+        mode: "payment",
+        payment_method_types: ["card"],
+        success_url: process.env.STRIPE_SUCCESS_URL,
+        cancel_url: process.env.STRIPE_CANCEL_URL,
+      });
+
+      res.json({ url: session.url });
     } catch (error) {
-      next(error);
+      res.status(400).json({ error: { message: error.message } });
+      next(error)
     }
   },
 };

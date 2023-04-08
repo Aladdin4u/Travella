@@ -2,7 +2,7 @@ import useFetch from "../../hooks/useFectch";
 import "./featuredProperties.css";
 
 const FeaturedProperties = () => {
-  const { data, loading, error } = useFetch("http://localhost:8000/api/hotels?featured=true&&limit=4");
+  const { data, loading, error } = useFetch(`${process.env.REACT_APP_API}/hotels?featured=true&&limit=4`);
   return (
     <div className="fp">
       {loading ? (
