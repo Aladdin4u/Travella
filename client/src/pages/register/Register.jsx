@@ -28,7 +28,7 @@ console.log(credentials)
     dispatch({type: "LOGIN_START"})
     try {
       console.log("credentials +++>>>", credentials)
-        const res = await axios.post(`${process.env.REACT_APP_API}/auth/register`, credentials);
+        const res = await axios.post(`${import.meta.env.REACT_APP_API}/auth/register`, credentials);
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data});
         navigate("/");
     } catch (error) {

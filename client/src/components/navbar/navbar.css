@@ -17,11 +17,24 @@
 .logo{
   font-weight: 500;
 }
-
+.navItems {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
 .navButton{
   margin-left: 20px;
   border: none;
   padding: 5px 10px;
   cursor: pointer;
   color: #003580;
+}
+.arrow {
+  font-size: 20px!important;
+}
+.img {
+  border-radius: 15px;
+  width: 16px;
+  height: 16px;
+  border: 1px solid gray;
 }

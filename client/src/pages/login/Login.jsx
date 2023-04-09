@@ -30,7 +30,7 @@ const Login = () => {
     console.log(credentials);
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_API}/auth/login`,
+        `${import.meta.env.REACT_APP_API}/auth/login`,
         credentials
       );
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
@@ -46,7 +46,7 @@ const Login = () => {
     dispatch({ type: "LOGIN_START" });
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_API}/auth/login`,
+        `${import.meta.env.REACT_APP_API}/auth/login`,
         credentials
       );
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data });

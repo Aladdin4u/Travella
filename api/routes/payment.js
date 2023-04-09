@@ -4,7 +4,7 @@ const authController = require("../controllers/payment");
 const { verifyUser } = require("../utils/verifyToken");
 
 router.post(
-  "/create-checkout-session", verifyUser,
+  "/create-checkout-session",
   authController.createCheckoutSession
 );
 
