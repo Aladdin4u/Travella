@@ -23,6 +23,7 @@ const Hotel = () => {
   const location = useLocation();
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
+  const [price, setPrice] = useState(0);
   const [openModel, setOpenModel] = useState(false);
   let id = location.pathname.split("/")[2];
   const { data, loading } = useFetch(

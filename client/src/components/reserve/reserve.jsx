@@ -7,7 +7,7 @@ import useFetch from "../../hooks/useFectch";
 import axios from "axios";
 import "./reserve.css";
 
-const Reverse = ({ setOpen, hotelId }) => {
+const Reverse = ({ setOpen, hotelId, price }) => {
   const navigate = useNavigate();
   const { dates } = useContext(SearchContext);
   const [selectedRooms, setSelectedRooms] = useState([]);
@@ -63,7 +63,7 @@ const Reverse = ({ setOpen, hotelId }) => {
       );
       const paymentIntent = await axios.post(
         `http://localhost:8000/api/checkout/create-checkout-session`,
-        { data }
+        { hotelId, price }
       );
       console.log(paymentIntent);
       setOpen(false);

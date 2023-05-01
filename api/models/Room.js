@@ -10,18 +10,17 @@ const RoomSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    maxPeople: {
-      type: Number,
-      required: true,
-    },
-    roomNumbers: [{
-      number: Number,
-      unavaliableDates: {type:[Date]},
-    }],
+    
     desc: {
       type: String,
       required: true,
     },
+    bookings: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "Booking",
+      },
+    ],
   },
   { timestamps: true }
 );

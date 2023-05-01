@@ -32,15 +32,15 @@ module.exports = {
     }
   },
   updateRoomAvailability: async (req, res, next) => {
+    console.log("date==>", req.body, req.params.id)
     try {
-      await Room.updateOne(
-        { "roomNumbers._id": req.params.id },
+      const rep = await Room.findByIdAndUpdate(
+        { "_id": req.params.id },
         {
-          $push: {
-            "roomNumbers.$.unavailableDates": req.body.dates,
-          },
+          $set: req.body
         }
       );
+      console.log("rewaa>...>>>",rep)
       res.status(200).json("Room status has been updated.");
     } catch (err) {
       console.log(err);
