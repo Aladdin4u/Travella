@@ -8,6 +8,7 @@ router.post("/:hotelId", verifyAdmin, roomController.createRoom);
 
 //UPDATE
 router.put("/availability/:id", roomController.updateRoomAvailability);
+router.put("/book/:id", roomController.bookRoom);
 router.put("/:id", verifyAdmin, roomController.updateRoom);
 //DELETE
 router.delete("/:id/:hotelId", verifyAdmin, roomController.deleteRoom);

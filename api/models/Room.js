@@ -15,12 +15,8 @@ const RoomSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    bookings: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "Booking",
-      },
-    ],
+    roomNumbers: [{ number: Number, unavailableDates: {type: [Date]}}],
+    bookings: [],
   },
   { timestamps: true }
 );

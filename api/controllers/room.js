@@ -1,5 +1,6 @@
 const Room = require("../models/Room");
 const Hotel = require("../models/Hotel");
+const Booking = require("../models/Booking");
 
 module.exports = {
   createRoom: async (req, res, next) => {
@@ -32,9 +33,32 @@ module.exports = {
     }
   },
   updateRoomAvailability: async (req, res, next) => {
-    console.log("date==>", req.body, req.params.id)
     try {
-      const rep = await Room.findByIdAndUpdate(
+      await Room.updateOne(
+        { "roomNumbers._id": req.params.id },
+        {
+          $push: {
+            "roomNumbers.$.unavailableDates": req.body.dates
+          },
+        }
+      );
+      res.status(200).json("Room status has been updated.");
+    } catch (err) {
+      next(err);
+    }
+  },
+  bookRoom: async (req, res, next) => {
+    const id = req.params.id;
+    try {
+      const newBooking = await Booking({
+        user: req.user,
+        room: id,
+        checkin_date: req.body.checkin_date,
+        checkout_date: req.body.checkout_date,
+        maxPeople: req.body.maxPeople,
+        price: req.body.price,
+      })
+      const rep = await Booking.findByIdAndUpdate(
         { "_id": req.params.id },
         {
           $set: req.body

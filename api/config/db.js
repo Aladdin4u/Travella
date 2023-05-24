@@ -7,7 +7,7 @@ const connectDB = async () => {
       ? process.env.TEST_DB_STRING
       : process.env.DB_STRING;
   try {
-    const conn = await mongoose.connect("mongodb://127.0.0.1:27017/travella", {
+    const conn = await mongoose.connect(DB_STRING, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

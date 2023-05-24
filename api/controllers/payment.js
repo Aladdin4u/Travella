@@ -37,4 +37,13 @@ module.exports = {
       next(error);
     }
   },
+  bookRoom: async (req, res, next) => {
+    const { hotelId, price } = req.body;
+    try {
+      const hotel = await Hotel.findById({ hotelId });
+    } catch (error) {
+      res.status(400).json({ error: { message: error.message } });
+      next(error);
+    }
+  },
 };

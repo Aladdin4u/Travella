@@ -31,7 +31,7 @@ const Reverse = ({ setOpen, hotelId, price }) => {
 
   const isAvaliable = (roomNumber) => {
     const isFound = roomNumber.unavaliableDates.some((date) =>
-      alldates.includes(new Date(date.getTime()))
+      alldates.includes(new Date(date).getTime())
     );
     return !isFound;
   };
@@ -45,7 +45,7 @@ const Reverse = ({ setOpen, hotelId, price }) => {
         : selectedRooms.filter((item) => item !== value)
     );
   };
-  console.log(selectedRooms);
+  
   const handleClick = async () => {
     setLoading(true);
     try {
@@ -57,18 +57,18 @@ const Reverse = ({ setOpen, hotelId, price }) => {
               dates: alldates,
             }
           );
-          console.log(res.data);
           return res.data;
         })
       );
-      const paymentIntent = await axios.post(
-        `http://localhost:8000/api/checkout/create-checkout-session`,
-        { hotelId, price }
-      );
-      console.log(paymentIntent);
+      // const paymentIntent = await axios.post(
+      //   `http://localhost:8000/api/checkout/create-checkout-session`,
+      //   { hotelId, price }
+      // );
+      // console.log(paymentIntent);
       setOpen(false);
-      setLoading(false);
-      window.location.assign = paymentIntent.url;
+      navigate("/");
+      // setLoading(false);
+      // window.location.assign = paymentIntent.url;
     } catch (error) {}
   };
   return (
@@ -84,8 +84,8 @@ const Reverse = ({ setOpen, hotelId, price }) => {
           return (
             <div className="rItem" key={item._id}>
               <div className="rItemInfo">
-                <div className="rTitle">Name: {item.title}</div>
-                <div className="rDesc">Desc: {item.desc}</div>
+                <div className="rTitle">{item.title}</div>
+                <div className="rDesc">{item.desc}</div>
                 <div className="rMax">
                   Max People: <b>{item.maxPeople}</b>
                 </div>
