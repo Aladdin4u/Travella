@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-
 const connectDB = async () => {
   const DB_STRING =
     process.env.NODE_ENV === "test"

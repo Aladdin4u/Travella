@@ -1,5 +1,5 @@
 # TRAVELLA API(back-end)
-control use authentication  
+The backend manage the complex logic of authentication, database and making CRUD request.
 
 **Link to project:** http://recruiters-love-seeing-live-demos.com/
 

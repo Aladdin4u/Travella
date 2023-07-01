@@ -49,7 +49,7 @@ const Login = () => {
         `${import.meta.env.REACT_APP_API}/auth/login`,
         credentials
       );
-      dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+      dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
       console.log(res.data);
       navigate("/");
     } catch (error) {
