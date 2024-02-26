@@ -1,16 +1,14 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const methodOverride = require("method-override");
-const flash = require("express-flash");
 const morgan = require("morgan");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
-const authRoute = require("./Routes/auth");
-const usersRoute = require("./Routes/users");
-const hotelsRoute = require("./Routes/hotels");
-const roomsRoute = require("./Routes/rooms");
-const paymentRoute = require("./Routes/payment");
+const authRoute = require("./routes/auth");
+const usersRoute = require("./routes/users");
+const hotelsRoute = require("./routes/hotels");
+const roomsRoute = require("./routes/rooms");
+const paymentRoute = require("./routes/payment");
 
 const app = express();
 // Load env file
@@ -23,10 +21,6 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(morgan("dev"));
-//Use forms for put / delete
-app.use(methodOverride("_method"));
-
-app.use(flash());
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", usersRoute);
