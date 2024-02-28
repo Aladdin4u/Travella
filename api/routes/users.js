@@ -13,8 +13,6 @@ const router = express.Router();
 //   res.send("hello Admin  you are authenticated and can deleted user")
 // })
 
-//Create
-router.post("/", userController.createUser);
 //Update
 router.put("/:id", verifyUser, userController.updateUser);
 //Delete
