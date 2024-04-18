@@ -2,10 +2,11 @@
   "name": "travella",
   "version": "1.0.0",
   "description": "A Travel company ",
-  "main": "app.js",
+  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "cross-env NODE_ENV=production node app",
-    "dev": "cross-env NODE_ENV=development nodemon app",
+    "start": "cross-env NODE_ENV=production node index",
+    "dev": "cross-env NODE_ENV=development nodemon index",
     "test": "cross-env NODE_ENV=test tests"
   },
   "author": "Aladdin",

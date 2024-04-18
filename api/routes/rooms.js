@@ -1,22 +1,30 @@
-const express = require('express')
-const router = express.Router();
-const roomController = require('../controllers/room');
-const { verifyAdmin } = require('../utils/verifyToken');
+import { Router } from "express";
+const router = Router();
+import {
+  getRoom,
+  getRooms,
+  bookRoom,
+  createRoom,
+  updateRoom,
+  deleteRoom,
+  updateRoomAvailability,
+} from "../controllers/room.js";
+import { verifyAdmin } from "../utils/verifyToken.js";
 
 //CREATE
-router.post("/:hotelId", verifyAdmin, roomController.createRoom);
+router.post("/:hotelId", verifyAdmin, createRoom);
 
 //UPDATE
-router.put("/availability/:id", roomController.updateRoomAvailability);
-router.put("/book/:id", roomController.bookRoom);
-router.put("/:id", verifyAdmin, roomController.updateRoom);
+router.put("/availability/:id", updateRoomAvailability);
+router.put("/book/:id", bookRoom);
+router.put("/:id", verifyAdmin, updateRoom);
 //DELETE
-router.delete("/:id/:hotelId", verifyAdmin, roomController.deleteRoom);
+router.delete("/:id/:hotelId", verifyAdmin, deleteRoom);
 //GET
 
-router.get("/:id", roomController.getRoom);
+router.get("/:id", getRoom);
 //GET ALL
 
-router.get("/", roomController.getRooms);
+router.get("/", getRooms);
 
-module.exports = router
+export default router;

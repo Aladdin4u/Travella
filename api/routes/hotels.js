@@ -1,20 +1,31 @@
-const express = require("express");
-const hotelController = require("../controllers/hotel");
-const { verifyAdmin } = require("../utils/verifyToken");
+import express from "express";
+
 const router = express.Router();
 
-//Create
-router.post("/", verifyAdmin, hotelController.createHotel);
-//Update
-router.put("/:id", verifyAdmin, hotelController.updateHotel);
-//Delete
-router.delete("/:id", verifyAdmin, hotelController.deleteHotel);
-//Get
-router.get("/find/:id", hotelController.getHotel);
-//GetAll
-router.get("/", hotelController.getAllHotel);
-router.get("/countByCity", hotelController.getCountByCity);
-router.get("/countByType", hotelController.getCountByType);
-router.get("/room/:id", hotelController.getHotelRooms);
+import {
+  getHotel,
+  createHotel,
+  updateHotel,
+  deleteHotel,
+  getAllHotel,
+  getHotelRooms,
+  getCountByCity,
+  getCountByType,
+} from "../controllers/hotel.js";
+import { verifyAdmin } from "../utils/verifyToken.js";
 
-module.exports = router;
+//Create
+router.post("/", verifyAdmin, createHotel);
+//Update
+router.put("/:id", verifyAdmin, updateHotel);
+//Delete
+router.delete("/:id", verifyAdmin, deleteHotel);
+//Get
+router.get("/find/:id", getHotel);
+//GetAll
+router.get("/", getAllHotel);
+router.get("/countByCity", getCountByCity);
+router.get("/countByType", getCountByType);
+router.get("/room/:id", getHotelRooms);
+
+export default router;

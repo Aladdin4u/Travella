@@ -1,12 +1,13 @@
-const mongoose = require("mongoose");
+import mongoose  from "mongoose";
+import { DB_STRING, TEST_DB_STRING } from "./index.js";
 
 const connectDB = async () => {
-  const DB_STRING =
+  const MONGODB_STRING =
     process.env.NODE_ENV === "test"
-      ? process.env.TEST_DB_STRING
-      : process.env.DB_STRING;
+      ? TEST_DB_STRING
+      : DB_STRING;
   try {
-    const conn = await mongoose.connect(DB_STRING, {
+    const conn = await mongoose.connect(MONGODB_STRING, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -18,4 +19,4 @@ const connectDB = async () => {
   }
 };
 
-module.exports = connectDB;
+export default connectDB;

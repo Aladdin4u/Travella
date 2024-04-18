@@ -1,11 +1,12 @@
-const express = require("express");
-const router = express.Router();
-const authController = require("../controllers/payment");
-const { verifyUser } = require("../utils/verifyToken");
+import { Router } from "express";
+const router = Router();
+
+import { createCheckoutSession } from "../controllers/payment.js";
+import { verifyUser } from "../utils/verifyToken.js";
 
 router.post(
   "/create-checkout-session",
-  authController.createCheckoutSession
+  createCheckoutSession
 );
 
-module.exports = router;
+export default router;
