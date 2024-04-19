@@ -7,7 +7,7 @@ import useFetch from "../../hooks/useFectch";
 import axios from "axios";
 import "./reserve.css";
 
-const Reverse = ({ setOpen, hotelId, price }) => {
+const Reverse = ({ setOpen, hotelId }) => {
   const navigate = useNavigate();
   const { dates } = useContext(SearchContext);
   const [selectedRooms, setSelectedRooms] = useState([]);
@@ -83,7 +83,7 @@ const Reverse = ({ setOpen, hotelId, price }) => {
         {data.map((item) => {
           return (
             <div className="rItem" key={item._id}>
-              <div className="rItemInfo">
+              <div className="rInfo">
                 <div className="rTitle">{item.title}</div>
                 <div className="rDesc">{item.desc}</div>
                 <div className="rMax">
@@ -91,7 +91,7 @@ const Reverse = ({ setOpen, hotelId, price }) => {
                 </div>
                 <div className="rprice">Price: {item.price}</div>
               </div>
-              <div className="rSelectedRooms">
+              <div className="rSelectRooms">
                 {item.roomNumbers.map((roomNumber) => (
                   <div className="room" key={roomNumber.number}>
                     <label>{roomNumber.number}</label>
@@ -108,7 +108,7 @@ const Reverse = ({ setOpen, hotelId, price }) => {
           );
         })}
         <button onClick={handleClick} className="rButton">
-          Reserve Now
+          Reserve Now!
         </button>
       </div>
     </div>

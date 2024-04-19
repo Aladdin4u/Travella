@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import jwk from "jsonwebtoken";
 
 import User from "../models/User.js";
-import { JWT } from "../config/index.js";
+import { JWT_SECRET } from "../config/index.js";
 import { createError } from "../utils/error.js";
 
 export const register = async (req, res, next) => {
@@ -32,7 +32,11 @@ export const login = async (req, res, next) => {
     if (!isPasswordCorrect)
       return createError(400, "Wrong password or username!");
 
-    const token = jwk.sign({ id: user._id, isAdmin: user.isAdmin }, JWT);
+    const token = jwk.sign(
+      { id: user._id, isAdmin: user.isAdmin },
+      JWT_SECRET,
+      { expiresIn: "7d" }
+    );
     const { password, isAdmin, ...otherDetails } = user._doc;
     res
       .cookie("access_token", token, {

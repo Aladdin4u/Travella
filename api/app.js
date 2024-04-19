@@ -3,7 +3,7 @@ import express from "express";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 
-import routes from "./routes/index.js"
+import routes from "./routes/index.js";
 
 const expressApp = (app) => {
   app.use(cors());
