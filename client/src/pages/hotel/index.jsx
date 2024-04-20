@@ -1,21 +1,23 @@
-import "./hotel.css";
-import Navbar from "../../components/navbar/Navbar";
-import Header from "../../components/header/Header";
-import MailList from "../../components/mailList/MailList";
-import Footer from "../../components/footer/Footer";
-import Reserve from "../../components/reserve/Reserve";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useContext, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   faCircleArrowLeft,
   faCircleArrowRight,
   faCircleXmark,
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
-import { useContext, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import "./hotel.css";
 import useFetch from "../../hooks/useFetch";
-import { useLocation, useNavigate } from "react-router-dom";
-import { SearchContext } from "../../context/SearchContext";
+import Navbar from "../../components/navbar";
+import Header from "../../components/header";
+import Footer from "../../components/footer";
+import Reserve from "../../components/reserve";
+import MailList from "../../components/mailList";
+import { REACT_APP_BASE_URL } from "../../utils/config";
 import { AuthContext } from "../../context/AuthContext";
+import { SearchContext } from "../../context/SearchContext";
 
 const Hotel = () => {
   const { user } = useContext(AuthContext);
@@ -26,9 +28,7 @@ const Hotel = () => {
   const [price, setPrice] = useState(0);
   const [openModel, setOpenModel] = useState(false);
   let id = location.pathname.split("/")[2];
-  const { data, loading } = useFetch(
-    `http://localhost:8000/api/hotels/find/${id}`
-  );
+  const { data, loading } = useFetch(`${REACT_APP_BASE_URL}/hotels/find/${id}`);
 
   const { dates, options } = useContext(SearchContext);
 

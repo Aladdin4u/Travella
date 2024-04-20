@@ -1,11 +1,10 @@
-import useFetch from "../../hooks/useFetch";
 import "./featured.css";
+import useFetch from "../../hooks/useFetch";
+import { REACT_APP_BASE_URL } from "../../utils/config";
 
 const Featured = () => {
   const { data, loading, error } = useFetch(
-    `${
-      import.meta.env.REACT_APP_BASE_URL
-    }/hotels/countByCity?cities=berlin,madrid,london`
+    `${REACT_APP_BASE_URL}/hotels/countByCity?cities=berlin,madrid,london`
   );
 
   return (

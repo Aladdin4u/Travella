@@ -1,9 +1,10 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import "./navbar.css";
+import { AuthContext } from "../../context/AuthContext";
 
 const Navbar = () => {
   const { user } = useContext(AuthContext);

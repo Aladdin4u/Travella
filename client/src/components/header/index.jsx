@@ -1,21 +1,22 @@
+import { format } from "date-fns";
+import { useContext, useState } from "react";
+import { DateRange } from "react-date-range";
+import { Link, useNavigate } from "react-router-dom";
 import {
-  faBed,
-  faCalendarDays,
   faCar,
-  faPerson,
-  faPlane,
+  faBed,
   faTaxi,
+  faPlane,
+  faPerson,
+  faCalendarDays,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import "./header.css";
-import { DateRange } from "react-date-range";
-import { useContext, useState } from "react";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
-import { format } from "date-fns";
-import { Link, useNavigate } from "react-router-dom";
-import { SearchContext } from "../../context/SearchContext";
 import { AuthContext } from "../../context/AuthContext";
+import { SearchContext } from "../../context/SearchContext";
 
 const Header = ({ type }) => {
   const navigate = useNavigate();

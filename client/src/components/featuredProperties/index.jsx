@@ -1,9 +1,10 @@
-import useFetch from "../../hooks/useFetch";
 import "./featuredProperties.css";
+import useFetch from "../../hooks/useFetch";
+import { REACT_APP_BASE_URL } from "../../utils/config";
 
 const FeaturedProperties = () => {
   const { data, loading, error } = useFetch(
-    `${import.meta.env.REACT_APP_BASE_URL}/hotels?featured=true&&limit=4`
+    `${REACT_APP_BASE_URL}/hotels?featured=true&&limit=4`
   );
   return (
     <div className="fp">

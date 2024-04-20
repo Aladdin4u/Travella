@@ -1,8 +1,10 @@
+import axios from "axios";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
-import axios from "axios";
+
 import "./login.css";
+import { AuthContext } from "../../context/AuthContext";
+import { REACT_APP_BASE_URL } from "../../utils/config";
 
 const Login = () => {
   const [credentials, SetCredentials] = useState({
@@ -25,7 +27,7 @@ const Login = () => {
     dispatch({ type: "LOGIN_START" });
     try {
       const res = await axios.post(
-        `${import.meta.env.REACT_APP_BASE_URL}/auth/login`,
+        `${REACT_APP_BASE_URL}/auth/login`,
         credentials
       );
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });

@@ -11,25 +11,22 @@ const verifyToken = (req, res, next) => {
   verify(token, JWT_SECRET, (err, user) => {
     if (err) return next(createError(403, "Token is not valid!"));
     req.user = user;
-    next();
   });
 };
 
 export function verifyUser(req, res, next) {
-  verifyToken(req, res, () => {
-    if (req.user?.id === req.params.id || req.user?.isAdmin) {
-      next();
-    } else {
-      return next(createError(403, "You are not authorized!"));
-    }
-  });
+  verifyToken(req, res, next);
+  if (req.user?.id === req.params.id || req.user?.isAdmin) {
+    next();
+  } else {
+    return next(createError(403, "You are not authorized!"));
+  }
 }
 export function verifyAdmin(req, res, next) {
-  verifyToken(req, res, () => {
-    if (req.user?.isAdmin) {
-      next();
-    } else {
-      return next(createError(403, "You are not authorized!"));
-    }
-  });
+  verifyToken(req, res, next);
+  if (req.user?.isAdmin) {
+    next();
+  } else {
+    return next(createError(403, "You are not authorized!"));
+  }
 }
