@@ -1,10 +1,10 @@
 import "./chart.scss";
 import {
-  AreaChart,
   Area,
   XAxis,
-  CartesianGrid,
   Tooltip,
+  AreaChart,
+  CartesianGrid,
   ResponsiveContainer,
 } from "recharts";
 

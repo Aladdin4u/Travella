@@ -1,9 +1,11 @@
-import "./new.scss";
-import Sidebar from "../../components/sidebar/Sidebar";
-import Navbar from "../../components/navbar/Navbar";
-import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
-import { useState } from "react";
 import axios from "axios";
+import { useState } from "react";
+
+import "./new.scss";
+import Navbar from "../../components/navbar";
+import Sidebar from "../../components/sidebar";
+import { REACT_APP_BASE_URL } from "../../utils/config";
+import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 
 const New = ({ inputs, title }) => {
   const [file, setFile] = useState("");
@@ -19,12 +21,12 @@ const New = ({ inputs, title }) => {
     data.append("file", file)
     data.append("upload_preset", "upload")
     try {
-      const uploadRes = await axios.post("https://api", data)
+      const uploadRes = await axios.post(`${REACT_APP_BASE_URL}`, data)
       const { url } = uploadRes.data;
       const newUser = {
         ...info, img: url
       }
-      await axios.post("/auth/register", newUser)
+      await axios.post(`${REACT_APP_BASE_URL}/auth/register`, newUser)
     } catch (error) {
       console.log(error)
     }

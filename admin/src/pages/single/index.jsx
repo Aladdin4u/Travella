@@ -1,8 +1,8 @@
 import "./single.scss";
-import Sidebar from "../../components/sidebar/Sidebar";
-import Navbar from "../../components/navbar/Navbar";
-import Chart from "../../components/chart/Chart";
-import List from "../../components/table/Table";
+import List from "../../components/table";
+import Chart from "../../components/chart";
+import Navbar from "../../components/navbar";
+import Sidebar from "../../components/sidebar";
 
 const Single = () => {
   return (

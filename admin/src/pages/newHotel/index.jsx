@@ -1,9 +1,11 @@
-import "./newHotel.scss";
-import Sidebar from "../../components/sidebar/Sidebar";
-import Navbar from "../../components/navbar/Navbar";
-import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState } from "react";
+
+import "./newHotel.scss";
+import Navbar from "../../components/navbar";
+import Sidebar from "../../components/sidebar";
 import useFetch from "../../hooks/useFetch";
+import { REACT_APP_BASE_URL } from "../../utils/config";
+import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 
 const NewHotel = () => {
   const [files, setFiles] = useState("");
@@ -29,14 +31,14 @@ const NewHotel = () => {
         const data = new FormData()
         data.append("file", file)
         data.append("upload_preset", "upload")
-        const uploadRes = await axios.post("https://api", data)
+        const uploadRes = await axios.post(`${REACT_APP_BASE_URL}`, data);
         const { url } = uploadRes.data;
         return url
       }))
       const newHotel = {
         ...info, rooms, photos: list
       }
-      await axios.post("/hotels", newHotel)
+      await axios.post(`${REACT_APP_BASE_URL}/hotels`, newHotel);
     } catch (error) {
       console.log(error)
     }

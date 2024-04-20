@@ -1,8 +1,9 @@
-import "./newRoom.scss";
-import Sidebar from "../../components/sidebar/Sidebar";
-import Navbar from "../../components/navbar/Navbar";
-import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState } from "react";
+
+import "./newRoom.scss";
+import Sidebar from "../../components/sidebar";
+import Navbar from "../../components/navbar";
+import { REACT_APP_BASE_URL } from "../../utils/config";
 
 const NewRoom = () => {
   const [info, setInfo] = useState({})
@@ -21,7 +22,7 @@ const NewRoom = () => {
       const newRoom = {
         ...info, roomNumbers
       }
-      await axios.post(`/room/${hotelId}`, newRoom)
+      await axios.post(`${REACT_APP_BASE_URL}/room/${hotelId}`, newRoom);
     } catch (error) {
       console.log(error)
     }

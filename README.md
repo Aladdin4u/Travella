@@ -51,4 +51,4 @@ Constantly refactor the code and improve the usage and scalablitiy of the app. U
 1. Enter your data into .env
 1. run `yarn install`
 1. run `yarn dev`
-1. navigate to https://localhost:3000
+1. navigate to https://localhost4000

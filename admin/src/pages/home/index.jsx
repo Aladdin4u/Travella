@@ -1,10 +1,10 @@
-import Sidebar from "../../components/sidebar/Sidebar";
-import Navbar from "../../components/navbar/Navbar";
 import "./home.scss";
-import Widget from "../../components/widget/Widget";
-import Featured from "../../components/featured/Featured";
-import Chart from "../../components/chart/Chart";
-import Table from "../../components/table/Table";
+import Table from "../../components/table";
+import Chart from "../../components/chart";
+import Navbar from "../../components/navbar";
+import Widget from "../../components/widget";
+import Sidebar from "../../components/sidebar";
+import Featured from "../../components/featured";
 
 const Home = () => {
   return (
