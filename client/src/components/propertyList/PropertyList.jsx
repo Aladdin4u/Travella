@@ -3,7 +3,7 @@ import "./propertyList.css";
 
 const PropertyList = () => {
   const { data, loading, error } = useFetch(
-    `${import.meta.env.REACT_APP_API}/hotels/countByType`
+    `${import.meta.env.REACT_APP_BASE_URL}/hotels/countByType`
   );
   const images = [
     "https://cf.bstatic.com/xdata/images/xphoto/square300/57584488.webp?k=bf724e4e9b9b75480bbe7fc675460a089ba6414fe4693b83ea3fdd8e938832a6&o=",

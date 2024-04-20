@@ -3,7 +3,7 @@ import "./featuredProperties.css";
 
 const FeaturedProperties = () => {
   const { data, loading, error } = useFetch(
-    `${import.meta.env.REACT_APP_API}/hotels?featured=true&&limit=4`
+    `${import.meta.env.REACT_APP_BASE_URL}/hotels?featured=true&&limit=4`
   );
   return (
     <div className="fp">

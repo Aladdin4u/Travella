@@ -14,8 +14,7 @@ const Register = () => {
     password: undefined,
   });
   const { loading, error, dispatch } = useContext(AuthContext);
-  
-console.log(credentials)
+
   const handleChange = (e) => {
     SetCredentials((prev) => ({
       ...prev,
@@ -23,12 +22,14 @@ console.log(credentials)
     }));
   };
 
-  const handleClick = async(e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     dispatch({type: "LOGIN_START"})
     try {
-      console.log("credentials +++>>>", credentials)
-        const res = await axios.post(`${import.meta.env.REACT_APP_API}/auth/register`, credentials);
+        const res = await axios.post(
+          `${import.meta.env.REACT_APP_BASE_URL}/auth/register`,
+          credentials
+        );
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data});
         navigate("/");
     } catch (error) {
@@ -74,7 +75,7 @@ console.log(credentials)
                 onChange={handleChange}
                 className="lRegister"
             />
-            <button disabled={loading} onClick={handleClick} className="lButton">Register</button>
+            <button disabled={loading} onClick={handleSubmit} className="lButton">Register</button>
             {error && <span>{error.message}</span> }
             <p>Have an account? <Link to="/login">Login</Link></p>
         </div>

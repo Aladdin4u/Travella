@@ -4,7 +4,7 @@ import "./featured.css";
 const Featured = () => {
   const { data, loading, error } = useFetch(
     `${
-      import.meta.env.REACT_APP_API
+      import.meta.env.REACT_APP_BASE_URL
     }/hotels/countByCity?cities=berlin,madrid,london`
   );
 

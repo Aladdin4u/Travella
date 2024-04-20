@@ -19,34 +19,13 @@ const Login = () => {
       [e.target.id]: e.target.value,
     }));
   };
-  const handleDemo = async (e) => {
-    e.preventDefault();
-    dispatch({ type: "LOGIN_START" });
-    SetCredentials((prev) => ({
-      ...prev,
-      username: "demo",
-      password: "demo",
-    }));
-    console.log(credentials);
-    try {
-      const res = await axios.post(
-        `${import.meta.env.REACT_APP_API}/auth/login`,
-        credentials
-      );
-      dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
-      console.log(res.data);
-      navigate("/");
-    } catch (error) {
-      dispatch({ type: "LOGIN_FAILURE", payload: error.response.data });
-    }
-  };
 
-  const handleClick = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch({ type: "LOGIN_START" });
     try {
       const res = await axios.post(
-        `${import.meta.env.REACT_APP_API}/auth/login`,
+        `${import.meta.env.REACT_APP_BASE_URL}/auth/login`,
         credentials
       );
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
@@ -57,12 +36,13 @@ const Login = () => {
     }
   };
   return (
-    <div className="login">
+    <form className="login">
       <div className="lContainer">
         <input
           type="text"
           placeholder="username"
           id="username"
+          name="username"
           onChange={handleChange}
           className="lInput"
         />
@@ -70,20 +50,13 @@ const Login = () => {
           type="password"
           placeholder="password"
           id="password"
+          name="password"
           onChange={handleChange}
           className="lInput"
         />
-        <div className="lBtn">
-          <button disabled={loading} onClick={handleClick} className="lButton">
+        <div>
+          <button disabled={loading} onClick={handleSubmit} className="lButton">
             Login
-          </button>
-          <button
-            disabled={loading}
-            type="submit"
-            onClick={handleDemo}
-            className="lButton"
-          >
-            Demo
           </button>
         </div>
         {error && <span>{error.message}</span>}
@@ -91,7 +64,7 @@ const Login = () => {
           Create an account? <Link to="/register">Register</Link>
         </p>
       </div>
-    </div>
+    </form>
   );
 };
 
